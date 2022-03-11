@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Edvora.iml" filepath="$PROJECT_DIR$/.idea/modules/Edvora.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Edvora.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Edvora.app.iml" />
     </modules>
   </component>
 </project>
