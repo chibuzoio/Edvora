@@ -12,10 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edvora.R
 import com.example.edvora.adapter.RidesCollectionAdapter
 import com.example.edvora.model.RidesCollectionModel
-
+import com.google.gson.Gson
+import okhttp3.*
+import java.io.IOException
+import java.io.StringReader
 
 class TabFragment : Fragment() {
-    var position = 0
+    private var position: Int? = 0
+    private var contextView: View? = null
+    private lateinit var ridesCollectionRecycler: RecyclerView
+    private var ridesCollectionArray: Array<RidesCollectionModel>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,35 +38,60 @@ class TabFragment : Fragment() {
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        textView = view.findViewById(R.id.textView) as TextView
-//        textView.setText("Fragment " + (position + 1))
-
-        // fetch the required data here for every given fragment
-        // implement recyclerview here
-
-        val ridesCollectionRecycler = view.findViewById<RecyclerView>(R.id.ridesCollectionRecycler)
+        contextView = view
+        ridesCollectionRecycler = view.findViewById(R.id.ridesCollectionRecycler)
 
         ridesCollectionRecycler.layoutManager = LinearLayoutManager(view.context, RecyclerView.VERTICAL, false)
         ridesCollectionRecycler.itemAnimator = DefaultItemAnimator()
 
-        val ridesCollection = ArrayList<RidesCollectionModel>()
-
-        if (position == 0) {
-            // fetch Nearest
-
+        try {
+            fetchData()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
+    }
 
-        if (position == 1) {
-            // fetch Upcoming
+    @Throws(IOException::class)
+    fun fetchData() {
+        val client = OkHttpClient()
+        val request: Request = Request.Builder()
+            .url(getString(R.string.project_api))
+            .build()
 
-        }
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException?) {
+                call.cancel()
+            }
 
-        if (position == 2) {
-            //fetch Past
+            @Throws(IOException::class)
+            override fun onResponse(call: Call?, response: Response) {
+                val myResponse: String = response.body()!!.string()
 
-        }
+                activity?.runOnUiThread {
+                    var stringReader = StringReader(myResponse)
+                    var gson = Gson()
 
-        ridesCollectionRecycler.adapter = RidesCollectionAdapter(ridesCollection)
+                    ridesCollectionArray = gson.fromJson(stringReader , Array<RidesCollectionModel>::class.java)
+
+                    if (position == 0) {
+                        // fetch Nearest
+
+                    }
+
+                    if (position == 1) {
+                        // fetch Upcoming
+
+                    }
+
+                    if (position == 2) {
+                        //fetch Past
+
+                    }
+
+                    ridesCollectionRecycler.adapter = RidesCollectionAdapter(ridesCollectionArray!!)
+                }
+            }
+        })
     }
 
     companion object {
