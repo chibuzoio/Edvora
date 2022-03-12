@@ -3,10 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/card_layout_curve.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/city_state_layout.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/user_name_image.xml" value="0.141" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/fragment_tab.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/include_generic_toolbar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/recycler_rides_collection.xml" value="0.1796875" />
       </map>
     </option>
   </component>

@@ -7,7 +7,8 @@ import com.example.edvora.fragment.TabFragment
 
 internal class ViewPagerAdapter(manager: FragmentManager?) :
     FragmentPagerAdapter(manager!!) {
-    private val title = arrayOf("One", "Two", "Three")
+    private val title = arrayOf("Nearest", "Upcoming", "Past")
+
     override fun getItem(position: Int): Fragment {
         return TabFragment.getInstance(position)
     }

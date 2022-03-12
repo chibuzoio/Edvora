@@ -3,6 +3,13 @@
     <string name="user_name">Dhruv Singh</string>
     <string name="ride_title">Rides:</string>
     <string name="filter_title">Filters</string>
+    <string name="city_placeholder">City Name</string>
+    <string name="state_placeholder">State Name</string>
+    <string name="ride_id">Ride Id: 002</string>
+    <string name="origin_station">Origin Station: 20</string>
+    <string name="station_path">Station Path: [20, 39, 40, 42, 54, 63, 72, 88, 98]</string>
+    <string name="date">Date: 15th Feb 2022 16:33</string>
+    <string name="distance">Distance: 0</string>
 </resources>
 
 
