@@ -12,16 +12,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edvora.R
 import com.example.edvora.adapter.RidesCollectionAdapter
 import com.example.edvora.model.RidesCollectionModel
-import com.google.gson.Gson
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import okhttp3.*
 import java.io.IOException
-import java.io.StringReader
+import java.util.regex.Pattern
 
 class TabFragment : Fragment() {
     private var position: Int? = 0
     private var contextView: View? = null
     private lateinit var ridesCollectionRecycler: RecyclerView
     private var ridesCollectionArray: Array<RidesCollectionModel>? = null
+
+    private val urlPattern: Pattern = Pattern.compile(
+        "(?:^|[\\W])((ht|f)tp(s?):\\/\\/|www\\.)"
+                + "(([\\w\\-]+\\.){1,}?([\\w\\-.~]+\\/?)*"
+                + "[\\p{Alnum}.,%_=?&#\\-+()\\[\\]\\*$~@!:/{};']*)",
+        Pattern.CASE_INSENSITIVE or Pattern.MULTILINE or Pattern.DOTALL
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,10 +76,8 @@ class TabFragment : Fragment() {
                 val myResponse: String = response.body()!!.string()
 
                 activity?.runOnUiThread {
-                    var stringReader = StringReader(myResponse)
-                    var gson = Gson()
-
-                    ridesCollectionArray = gson.fromJson(stringReader , Array<RidesCollectionModel>::class.java)
+                    val mapper = jacksonObjectMapper()
+                    ridesCollectionArray = mapper.readValue(myResponse)
 
                     if (position == 0) {
                         // fetch Nearest

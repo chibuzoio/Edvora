@@ -10,11 +10,11 @@
     <string name="station_path_placeholder">Station Path: [20, 39, 40, 42, 54, 63, 72, 88, 98]</string>
     <string name="date_placeholder">Date: 15th Feb 2022 16:33</string>
     <string name="distance_placeholder">Distance: 0</string>
-    <string name="ride_id">Ride Id: </string>
-    <string name="origin_station">Origin Station: </string>
-    <string name="station_path">Station Path: </string>
-    <string name="date">Date: </string>
-    <string name="distance">Distance: </string>
+    <string name="ride_id">Ride Id:&#160;</string>
+    <string name="origin_station">Origin Station:&#160;</string>
+    <string name="station_path">Station Path:&#160;</string>
+    <string name="date">Date:&#160;</string>
+    <string name="distance">Distance:&#160;</string>
     <string name="project_api">https://assessment.api.vweb.app/rides</string>
 </resources>
 

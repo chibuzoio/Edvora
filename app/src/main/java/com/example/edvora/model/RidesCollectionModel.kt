@@ -1,11 +1,14 @@
 package com.example.edvora.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class RidesCollectionModel(var id: Int,
-                                var originStationCode: Int,
-                                var stationPath: Array<Int>,
-                                var destinationStationCode: Int,
+                                var origin_station_code: Int,
+                                var station_path: ArrayList<Int>,
+                                var destination_station_code: Int,
                                 var date: String,
-                                var mapUrl: String,
+                                var map_url: String,
                                 var state: String,
                                 var city: String)
 
