@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.edvora.R
+import com.example.edvora.adapter.RidesCollectionAdapter
+import com.example.edvora.model.RidesCollectionModel
 
 
 class TabFragment : Fragment() {
@@ -41,8 +43,24 @@ class TabFragment : Fragment() {
         ridesCollectionRecycler.layoutManager = LinearLayoutManager(view.context, RecyclerView.VERTICAL, false)
         ridesCollectionRecycler.itemAnimator = DefaultItemAnimator()
 
+        val ridesCollection = ArrayList<RidesCollectionModel>()
 
+        if (position == 0) {
+            // fetch Nearest
 
+        }
+
+        if (position == 1) {
+            // fetch Upcoming
+
+        }
+
+        if (position == 2) {
+            //fetch Past
+
+        }
+
+        ridesCollectionRecycler.adapter = RidesCollectionAdapter(ridesCollection)
     }
 
     companion object {

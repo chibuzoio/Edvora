@@ -15,6 +15,7 @@
     <string name="station_path">Station Path: </string>
     <string name="date">Date: </string>
     <string name="distance">Distance: </string>
+    <string name="project_api">https://assessment.api.vweb.app/rides</string>
 </resources>
 
 
