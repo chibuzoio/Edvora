@@ -1,5 +1,6 @@
 package com.example.edvora.fragment
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +13,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edvora.R
 import com.example.edvora.adapter.RidesCollectionAdapter
 import com.example.edvora.model.RidesCollectionModel
+import com.example.edvora.utility.Utility
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import okhttp3.*
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.regex.Pattern
 
 class TabFragment : Fragment() {
     private var position: Int? = 0
     private var contextView: View? = null
+    private lateinit var progressDialog: ProgressDialog
     private lateinit var ridesCollectionRecycler: RecyclerView
     private var ridesCollectionArray: Array<RidesCollectionModel>? = null
 
@@ -52,6 +57,10 @@ class TabFragment : Fragment() {
         ridesCollectionRecycler.layoutManager = LinearLayoutManager(view.context, RecyclerView.VERTICAL, false)
         ridesCollectionRecycler.itemAnimator = DefaultItemAnimator()
 
+        progressDialog = ProgressDialog(activity)
+        progressDialog.setMessage("Rides Are Loading...")
+        progressDialog.show()
+
         try {
             fetchData()
         } catch (e: IOException) {
@@ -74,30 +83,52 @@ class TabFragment : Fragment() {
             @Throws(IOException::class)
             override fun onResponse(call: Call?, response: Response) {
                 val myResponse: String = response.body()!!.string()
+                var specificRidesCollectionArray = arrayOfNulls<RidesCollectionModel>(0)
 
                 activity?.runOnUiThread {
                     val mapper = jacksonObjectMapper()
                     ridesCollectionArray = mapper.readValue(myResponse)
 
                     if (position == 0) {
-                        // fetch Nearest
-
+                        for (ridesCollectionModel in ridesCollectionArray!!) {
+                            if (ridesCollectionModel.station_path.contains(40)) {
+                                specificRidesCollectionArray = Utility.append(specificRidesCollectionArray, ridesCollectionModel)
+                            }
+                        }
                     }
 
                     if (position == 1) {
-                        // fetch Upcoming
+                        for (ridesCollectionModel in ridesCollectionArray!!) {
+                            val currentTime = System.currentTimeMillis()
 
+                            if ((getDateTime(ridesCollectionModel) - currentTime) > 0) {
+                                specificRidesCollectionArray = Utility.append(specificRidesCollectionArray, ridesCollectionModel)
+                            }
+                        }
                     }
 
                     if (position == 2) {
-                        //fetch Past
+                        for (ridesCollectionModel in ridesCollectionArray!!) {
+                            val currentTime = System.currentTimeMillis()
 
+                            if ((getDateTime(ridesCollectionModel) - currentTime) < 0) {
+                                specificRidesCollectionArray = Utility.append(specificRidesCollectionArray, ridesCollectionModel)
+                            }
+                        }
                     }
 
-                    ridesCollectionRecycler.adapter = RidesCollectionAdapter(ridesCollectionArray!!)
+                    ridesCollectionRecycler.adapter = RidesCollectionAdapter(specificRidesCollectionArray)
+                    progressDialog.hide()
                 }
             }
         })
+    }
+
+    fun getDateTime(ridesCollectionModel: RidesCollectionModel): Long {
+        val formatter = SimpleDateFormat("MM/dd/yyyy HH:mm aa", Locale.ENGLISH)
+        val localDate = formatter.parse(ridesCollectionModel.date)
+
+        return localDate!!.time
     }
 
     companion object {
