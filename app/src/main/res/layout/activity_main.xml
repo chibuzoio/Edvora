@@ -53,15 +53,21 @@
                         app:tabMode="fixed"/>
 
                     <TextView
-                        android:text="@string/filter_title"
+                        android:id="@+id/filterMenuButton"
                         android:textSize="12sp"
-                        android:layout_weight="1"
                         android:gravity="center"
+                        android:layout_weight="1"
                         android:layout_gravity="center"
+                        android:text="@string/filter_title"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:background="@color/tab_layout_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPager"
@@ -73,6 +79,7 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/floatingMenuOverlay"
+                android:visibility="gone"
                 android:background="@color/overlay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -82,6 +89,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/filterMenuLayout"
                 android:padding="25dp"
+                android:visibility="gone"
                 android:layout_gravity="end"
                 android:orientation="vertical"
                 android:layout_marginTop="50dp"
@@ -104,6 +112,7 @@
                     android:layout_height="1.5dp"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/stateFormLayout"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal"
                     android:paddingHorizontal="10dp"
@@ -136,6 +145,7 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/cityFormLayout"
                     android:orientation="horizontal"
                     android:paddingHorizontal="10dp"
                     android:background="@drawable/dropdown_field"
@@ -169,10 +179,12 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/dropdownStateList"
-                android:padding="10dp"
+                android:visibility="gone"
                 android:layout_gravity="end"
                 android:orientation="vertical"
+                android:paddingVertical="10dp"
                 android:layout_marginEnd="46dp"
+                android:paddingHorizontal="5dp"
                 android:layout_marginTop="170dp"
                 android:background="@drawable/dropdown_field"
                 android:layout_width="177dp"
@@ -189,11 +201,12 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/dropdownCityList"
-                android:padding="10dp"
                 android:visibility="gone"
                 android:layout_gravity="end"
                 android:orientation="vertical"
+                android:paddingVertical="10dp"
                 android:layout_marginEnd="46dp"
+                android:paddingHorizontal="5dp"
                 android:layout_marginTop="217.5dp"
                 android:background="@drawable/dropdown_field"
                 android:layout_width="177dp"

@@ -15,6 +15,7 @@
     <color name="dropdown_field">#232323</color>
     <color name="polygon_color">#A5A5A5</color>
     <color name="overlay">#80000000</color>
+    <color name="tab_layout_separator">#5F6A6A</color>
 </resources>
 
 

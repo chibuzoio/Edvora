@@ -1,7 +1,11 @@
 package com.example.edvora
 
+import android.R
 import android.os.Bundle
+import android.view.View
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.edvora.adapter.ViewPagerAdapter
 import com.example.edvora.databinding.ActivityMainBinding
 
@@ -20,8 +24,47 @@ class MainActivity : AppCompatActivity() {
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
         binding.floatingMenuOverlay.setOnClickListener {
-
+            binding.dropdownCityList.visibility = View.GONE
+            binding.dropdownStateList.visibility = View.GONE
+            binding.filterMenuLayout.visibility = View.GONE
+            binding.floatingMenuOverlay.visibility = View.GONE
         }
+
+        binding.filterMenuButton.setOnClickListener {
+            binding.dropdownCityList.visibility = View.GONE
+            binding.dropdownStateList.visibility = View.GONE
+            binding.filterMenuLayout.visibility = View.VISIBLE
+            binding.floatingMenuOverlay.visibility = View.VISIBLE
+        }
+
+        binding.stateFormLayout.setOnClickListener {
+            binding.dropdownCityList.visibility = View.GONE
+
+            if (binding.dropdownStateList.isVisible) {
+                binding.dropdownStateList.visibility = View.GONE
+            } else {
+                binding.dropdownStateList.visibility = View.VISIBLE
+            }
+        }
+
+        binding.cityFormLayout.setOnClickListener {
+            binding.dropdownStateList.visibility = View.GONE
+
+            if (binding.dropdownCityList.isVisible) {
+                binding.dropdownCityList.visibility = View.GONE
+            } else {
+                binding.dropdownCityList.visibility = View.VISIBLE
+            }
+        }
+        
+        val cityList = arrayOf("City Name", "City Name", "City Name", "City Name", "City Name")
+        val stateList = arrayOf("State Name", "State Name", "State Name", "State Name", "State Name")
+
+        val stateAdapter = ArrayAdapter(this, R.layout.simple_list_item_1, stateList)
+        binding.stateListView.adapter = stateAdapter
+
+        val cityAdapter = ArrayAdapter(this, R.layout.simple_list_item_1, cityList)
+        binding.cityListView.adapter = cityAdapter
     }
 }
 
