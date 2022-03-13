@@ -2,6 +2,7 @@ package com.example.edvora.fragment
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.edvora.MainActivity
 import com.example.edvora.R
 import com.example.edvora.adapter.RidesCollectionAdapter
 import com.example.edvora.model.RidesCollectionModel
@@ -83,6 +85,9 @@ class TabFragment : Fragment() {
             @Throws(IOException::class)
             override fun onResponse(call: Call?, response: Response) {
                 val myResponse: String = response.body()!!.string()
+
+                var cityNamesArray = arrayOfNulls<String>(0)
+                var stateNamesArray = arrayOfNulls<String>(0)
                 var specificRidesCollectionArray = arrayOfNulls<RidesCollectionModel>(0)
 
                 activity?.runOnUiThread {
@@ -92,7 +97,9 @@ class TabFragment : Fragment() {
                     if (position == 0) {
                         for (ridesCollectionModel in ridesCollectionArray!!) {
                             if (ridesCollectionModel.station_path.contains(40)) {
-                                specificRidesCollectionArray = Utility.append(specificRidesCollectionArray, ridesCollectionModel)
+                                specificRidesCollectionArray = Utility.appendRidesCollectionModel(specificRidesCollectionArray, ridesCollectionModel)
+                                stateNamesArray = Utility.appendToStringArray(stateNamesArray, ridesCollectionModel.state)
+                                cityNamesArray = Utility.appendToStringArray(cityNamesArray, ridesCollectionModel.city)
                             }
                         }
                     }
@@ -102,7 +109,9 @@ class TabFragment : Fragment() {
                             val currentTime = System.currentTimeMillis()
 
                             if ((getDateTime(ridesCollectionModel) - currentTime) > 0) {
-                                specificRidesCollectionArray = Utility.append(specificRidesCollectionArray, ridesCollectionModel)
+                                specificRidesCollectionArray = Utility.appendRidesCollectionModel(specificRidesCollectionArray, ridesCollectionModel)
+                                stateNamesArray = Utility.appendToStringArray(stateNamesArray, ridesCollectionModel.state)
+                                cityNamesArray = Utility.appendToStringArray(cityNamesArray, ridesCollectionModel.city)
                             }
                         }
                     }
@@ -112,10 +121,31 @@ class TabFragment : Fragment() {
                             val currentTime = System.currentTimeMillis()
 
                             if ((getDateTime(ridesCollectionModel) - currentTime) < 0) {
-                                specificRidesCollectionArray = Utility.append(specificRidesCollectionArray, ridesCollectionModel)
+                                specificRidesCollectionArray = Utility.appendRidesCollectionModel(specificRidesCollectionArray, ridesCollectionModel)
+                                stateNamesArray = Utility.appendToStringArray(stateNamesArray, ridesCollectionModel.state)
+                                cityNamesArray = Utility.appendToStringArray(cityNamesArray, ridesCollectionModel.city)
                             }
                         }
                     }
+
+                    cityNamesArray.sort()
+                    stateNamesArray.sort()
+
+                    val cityNamesSet = cityNamesArray.toList().toSet()
+                    val stateNamesSet = stateNamesArray.toList().toSet()
+
+                    var orderedCityArray = arrayOfNulls<String>(cityNamesSet.size)
+                    var orderedStateArray = arrayOfNulls<String>(stateNamesSet.size)
+
+                    for (city in cityNamesSet) {
+                        orderedCityArray = Utility.appendToStringArray(orderedCityArray, city.toString())
+                    }
+
+                    for (state in stateNamesSet) {
+                        orderedStateArray = Utility.appendToStringArray(orderedStateArray, state.toString())
+                    }
+
+                    ((requireActivity()) as MainActivity).populateFragmentData(orderedCityArray, orderedStateArray)
 
                     ridesCollectionRecycler.adapter = RidesCollectionAdapter(specificRidesCollectionArray)
                     progressDialog.hide()

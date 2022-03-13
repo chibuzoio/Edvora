@@ -2,6 +2,7 @@ package com.example.edvora
 
 import android.R
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,8 @@ import com.example.edvora.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var cityAdapter: ArrayAdapter<String?>
+    private lateinit var stateAdapter: ArrayAdapter<String?>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,15 +59,25 @@ class MainActivity : AppCompatActivity() {
                 binding.dropdownCityList.visibility = View.VISIBLE
             }
         }
-        
-        val cityList = arrayOf("City Name", "City Name", "City Name", "City Name", "City Name")
-        val stateList = arrayOf("State Name", "State Name", "State Name", "State Name", "State Name")
 
-        val stateAdapter = ArrayAdapter(this, R.layout.simple_list_item_1, stateList)
+        stateAdapter = ArrayAdapter(this, R.layout.simple_list_item_1, arrayOfNulls(0))
         binding.stateListView.adapter = stateAdapter
 
-        val cityAdapter = ArrayAdapter(this, R.layout.simple_list_item_1, cityList)
+        cityAdapter = ArrayAdapter(this, R.layout.simple_list_item_1, arrayOfNulls(0))
         binding.cityListView.adapter = cityAdapter
+    }
+    
+    fun populateFragmentData(cityList: Array<String?>, stateList: Array<String?>) {
+        Log.e("Execution", "Execution 1")
+        stateAdapter = ArrayAdapter(this, R.layout.simple_list_item_1, stateList)
+        Log.e("Execution", "Execution 2")
+        binding.stateListView.adapter = stateAdapter
+        Log.e("Execution", "Execution 3")
+
+        cityAdapter = ArrayAdapter(this, R.layout.simple_list_item_1, cityList)
+        Log.e("Execution", "Execution 4")
+        binding.cityListView.adapter = cityAdapter
+        Log.e("Execution", "Execution 5")
     }
 }
 
