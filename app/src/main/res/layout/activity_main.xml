@@ -20,52 +20,84 @@
             android:id="@+id/includeToolbarLayout"
             layout="@layout/include_generic_toolbar"/>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/sliderLayout"
-            android:orientation="vertical"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:orientation="horizontal"
+                android:id="@+id/sliderLayout"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:text="@string/ride_title"
-                    android:textSize="12sp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_weight="4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:tabGravity="fill"
-                    app:tabMode="fixed"/>
+                    <TextView
+                        android:text="@string/ride_title"
+                        android:textSize="12sp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
 
-                <TextView
-                    android:text="@string/filter_title"
-                    android:textSize="12sp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_weight="4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:tabGravity="fill"
+                        app:tabMode="fixed"/>
+
+                    <TextView
+                        android:text="@string/filter_title"
+                        android:textSize="12sp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/filterMenuLayout"
+                android:padding="25dp"
+                android:layout_gravity="end"
+                android:orientation="vertical"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/filter_menu_layout"
+                android:layout_width="228dp"
+                android:layout_height="190dp">
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <TextView
+                    android:textSize="20sp"
+                    android:text="@string/filter_title"
+                    android:textColor="@color/filter_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_marginVertical="10dp"
+                    android:background="@color/strike_through"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </FrameLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

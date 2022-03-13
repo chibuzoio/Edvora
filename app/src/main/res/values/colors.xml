@@ -10,6 +10,8 @@
     <color name="outer_background">#1B2631</color>
     <color name="generic_toolbar">#101010</color>
     <color name="card_layout">#171717</color>
+    <color name="strike_through">#CBCBCB</color>
+    <color name="filter_title">#A5A5A5</color>
 </resources>
 
 
