@@ -12,6 +12,9 @@
     <color name="card_layout">#171717</color>
     <color name="strike_through">#CBCBCB</color>
     <color name="filter_title">#A5A5A5</color>
+    <color name="dropdown_field">#232323</color>
+    <color name="polygon_color">#A5A5A5</color>
+    <color name="overlay">#80000000</color>
 </resources>
 
 

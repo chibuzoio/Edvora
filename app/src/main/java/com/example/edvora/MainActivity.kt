@@ -18,6 +18,10 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.adapter = adapter
 
         binding.tabLayout.setupWithViewPager(binding.viewPager)
+
+        binding.floatingMenuOverlay.setOnClickListener {
+
+        }
     }
 }
 

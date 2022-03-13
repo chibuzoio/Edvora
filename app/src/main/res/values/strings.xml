@@ -16,6 +16,8 @@
     <string name="date">Date:&#160;</string>
     <string name="distance">Distance:&#160;</string>
     <string name="project_api">https://assessment.api.vweb.app/rides</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
 </resources>
 
 
