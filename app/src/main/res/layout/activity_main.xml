@@ -181,19 +181,17 @@
                 android:id="@+id/dropdownStateList"
                 android:visibility="gone"
                 android:layout_gravity="end"
+                android:paddingVertical="5dp"
                 android:orientation="vertical"
-                android:paddingVertical="10dp"
                 android:layout_marginEnd="46dp"
-                android:paddingHorizontal="5dp"
+                android:paddingHorizontal="10dp"
                 android:layout_marginTop="170dp"
                 android:background="@drawable/dropdown_field"
                 android:layout_width="177dp"
                 android:layout_height="wrap_content">
 
-                <ListView
-                    android:id="@+id/stateListView"
-                    android:divider="@null"
-                    android:dividerHeight="0dp"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/stateListRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
@@ -203,19 +201,17 @@
                 android:id="@+id/dropdownCityList"
                 android:visibility="gone"
                 android:layout_gravity="end"
+                android:paddingVertical="5dp"
                 android:orientation="vertical"
-                android:paddingVertical="10dp"
                 android:layout_marginEnd="46dp"
-                android:paddingHorizontal="5dp"
+                android:paddingHorizontal="10dp"
                 android:layout_marginTop="217.5dp"
                 android:background="@drawable/dropdown_field"
                 android:layout_width="177dp"
                 android:layout_height="wrap_content">
 
-                <ListView
-                    android:id="@+id/cityListView"
-                    android:divider="@null"
-                    android:dividerHeight="0dp"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cityListRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 

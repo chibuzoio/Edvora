@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.edvora.MainActivity
 import com.example.edvora.R
 import com.example.edvora.adapter.RidesCollectionAdapter
+import com.example.edvora.model.PlacesCollectionModel
 import com.example.edvora.model.RidesCollectionModel
 import com.example.edvora.utility.Utility
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -134,18 +135,21 @@ class TabFragment : Fragment() {
                     val cityNamesSet = cityNamesArray.toList().toSet()
                     val stateNamesSet = stateNamesArray.toList().toSet()
 
-                    var orderedCityArray = arrayOfNulls<String>(cityNamesSet.size)
-                    var orderedStateArray = arrayOfNulls<String>(stateNamesSet.size)
+                    var orderedCityArray = arrayOfNulls<PlacesCollectionModel>(0)
 
                     for (city in cityNamesSet) {
-                        orderedCityArray = Utility.appendToStringArray(orderedCityArray, city.toString())
+                        orderedCityArray = Utility.appendPlacesCollectionModel(orderedCityArray, PlacesCollectionModel(city.toString()))
                     }
+
+                    ((requireActivity()) as MainActivity).populateCityNames(orderedCityArray)
+
+                    var orderedStateArray = arrayOfNulls<PlacesCollectionModel>(0)
 
                     for (state in stateNamesSet) {
-                        orderedStateArray = Utility.appendToStringArray(orderedStateArray, state.toString())
+                        orderedStateArray = Utility.appendPlacesCollectionModel(orderedStateArray, PlacesCollectionModel(state.toString()))
                     }
 
-                    ((requireActivity()) as MainActivity).populateFragmentData(orderedCityArray, orderedStateArray)
+                    ((requireActivity()) as MainActivity).populateStateNames(orderedStateArray)
 
                     ridesCollectionRecycler.adapter = RidesCollectionAdapter(specificRidesCollectionArray)
                     progressDialog.hide()

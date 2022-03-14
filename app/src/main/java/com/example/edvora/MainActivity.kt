@@ -1,19 +1,19 @@
 package com.example.edvora
 
-import android.R
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.edvora.adapter.PlacesCollectionAdapter
 import com.example.edvora.adapter.ViewPagerAdapter
 import com.example.edvora.databinding.ActivityMainBinding
+import com.example.edvora.model.PlacesCollectionModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var cityAdapter: ArrayAdapter<String?>
-    private lateinit var stateAdapter: ArrayAdapter<String?>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,24 +60,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        stateAdapter = ArrayAdapter(this, R.layout.simple_list_item_1, arrayOfNulls(0))
-        binding.stateListView.adapter = stateAdapter
+        binding.stateListRecycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        binding.stateListRecycler.itemAnimator = DefaultItemAnimator()
 
-        cityAdapter = ArrayAdapter(this, R.layout.simple_list_item_1, arrayOfNulls(0))
-        binding.cityListView.adapter = cityAdapter
+        binding.cityListRecycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        binding.cityListRecycler.itemAnimator = DefaultItemAnimator()
+
+        binding.stateListRecycler.adapter = PlacesCollectionAdapter(arrayOf(PlacesCollectionModel("")))
+        binding.cityListRecycler.adapter = PlacesCollectionAdapter(arrayOf(PlacesCollectionModel("")))
     }
-    
-    fun populateFragmentData(cityList: Array<String?>, stateList: Array<String?>) {
-        Log.e("Execution", "Execution 1")
-        stateAdapter = ArrayAdapter(this, R.layout.simple_list_item_1, stateList)
-        Log.e("Execution", "Execution 2")
-        binding.stateListView.adapter = stateAdapter
-        Log.e("Execution", "Execution 3")
 
-        cityAdapter = ArrayAdapter(this, R.layout.simple_list_item_1, cityList)
-        Log.e("Execution", "Execution 4")
-        binding.cityListView.adapter = cityAdapter
-        Log.e("Execution", "Execution 5")
+    fun populateStateNames(stateNamesArray: Array<PlacesCollectionModel?>) {
+        binding.stateListRecycler.swapAdapter(PlacesCollectionAdapter(stateNamesArray), true)
+    }
+
+    fun populateCityNames(cityNamesArray: Array<PlacesCollectionModel?>) {
+        binding.cityListRecycler.swapAdapter(PlacesCollectionAdapter(cityNamesArray), true)
     }
 }
 

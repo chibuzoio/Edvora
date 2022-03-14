@@ -11,6 +11,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/fragment_tab.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/include_generic_toolbar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/recycler_places.xml" value="0.1796875" />
+        <entry key="app/src/main/res/layout/recycler_places_collection.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/recycler_rides_collection.xml" value="0.1796875" />
       </map>
     </option>
